@@ -18,11 +18,19 @@ public class AutorService {
         this.autorRepository = autorRepository;
     }
 
+
+    // salvar no bd
     public Boolean salvar(Autor autor) {
         autorRepository.save(autor);
         return Boolean.TRUE;
     }
 
+    // Deletar no BD
+    public void deletarPorId(UUID id) {
+       autorRepository.deleteById(id);
+    }
+
+    // buscar por id no bd
     public Optional<Autor> obterPorId(UUID id) {
         return autorRepository.findById(id);
     }
