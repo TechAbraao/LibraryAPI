@@ -49,6 +49,8 @@ public class AutorController {
 
     ;
 
+
+
     @GetMapping("/{id}")
     public ResponseEntity<AutorDTO> obterDetalhesPeloId(@PathVariable("id") String id) {
         UUID idAutor = UUID
