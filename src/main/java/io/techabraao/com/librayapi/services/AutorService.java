@@ -4,6 +4,7 @@ import io.techabraao.com.librayapi.models.Autor;
 import io.techabraao.com.librayapi.repository.AutorRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -25,6 +26,14 @@ public class AutorService {
         return Boolean.TRUE;
     }
 
+    // Atualizar
+    public void atualizar(Autor autor) {
+        if (autor.getId() == null) {
+            throw new IllegalArgumentException("É necessário que o autor já esteja no bd.");
+        };
+        autorRepository.save(autor);
+    }
+
     // Deletar no BD
     public void deletarPorId(UUID id) {
        autorRepository.deleteById(id);
@@ -35,4 +44,19 @@ public class AutorService {
         return autorRepository.findById(id);
     }
 
+    // Buscar nome e nacionalidade
+    public List<Autor> pesquisa(String nome, String nacionalidade) {
+        if (nome != null && nacionalidade != null) {
+            return autorRepository.findByNomeAndNacionalidade(nome, nacionalidade);
+        }
+        if (nome != null) {
+            return autorRepository.findByNome(nome);
+        }
+
+        if (nacionalidade != null) {
+            return autorRepository.findByNacionalidade(nacionalidade);
+        }
+
+        return autorRepository.findAll();
+    }
 }
